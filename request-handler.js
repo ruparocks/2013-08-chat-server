@@ -1,24 +1,9 @@
-var url         = require("url");
-var querystring = require("querystring");
-//var module = require("module");
-//
-var messageList = [];
-
-var makeMessage = function(){
-
-};
+/* You should implement your request handler function in this file.
+ * But you need to pass the function to http.createServer() in
+ * basic-server.js.  So you must figure out how to export the function
+ * from this file and include it in basic-server.js. Check out the
+ * node module documentation at http://nodejs.org/api/modules.html. */
 
 var handleRequest = function(request, response) {
 
-return "the request was a " + request.method + " request";
-//if (request.method === "POST"){
-//newMessage = JSONparse(request.data)
-//messageList.push(newMessage)
-  // post the body of the request into the message list
-//}
-// if (request.method === "OPTIONS"){
-// }
-
 };
-
-module.exports = handleRequest;
