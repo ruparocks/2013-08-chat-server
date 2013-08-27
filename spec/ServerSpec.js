@@ -10,7 +10,14 @@ function StubRequest(url, method, postdata) {
   var self = this;
   this.addListener = this.on = function(type, callback) {
     if (type == "data") {
-      callback(JSON.stringify(self._postData));
+      // turn postdata (dictionary object) into raw postdata
+      // raw postdata looks like this:
+      // username=jono&message=do+my+bidding
+      var fields = [];
+      for (var key in self._postData) {
+        fields.push(key + "=" + self._postData[key].replace(" ", "+"));
+      }
+      callback(fields.join("&"));
     }
     if (type == "end") {
       callback();
@@ -58,12 +65,8 @@ describe("Node Server Request Listener Function", function() {
 
    handler.handleRequest(req, res);
 
-   // Expect 201 Created response status
-   expect(res._responseCode).toEqual(201);
-
-   // Testing for a newline isn't a valid test
-   // TODO: Replace with with a valid test
-   // expect(res._data).toEqual(JSON.stringify("\n"));
+   expect(res._responseCode).toEqual(302);
+   expect(res._data).toEqual("\n");
    expect(res._ended).toEqual(true);
 
    // Now if we request the log for that room,
